@@ -11,9 +11,12 @@ public class Page {
 
 	// 현재 페이지 번호, 글의 총 갯수, 페이지 크기, 페이지 블록 크기
 	public Page() {
-
+		
 	}
 
+	public Page(int totalPage){
+		this.totalPage = totalPage;
+	}
 	// 페이징 처리 함수
 	public void paging(int pageNum, int count, int pageSize, int pageBlock) {
 		// 크거나 같은 가장 가까운 정수
