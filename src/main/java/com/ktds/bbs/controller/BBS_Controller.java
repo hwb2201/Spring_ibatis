@@ -1,4 +1,4 @@
-package com.ktds.bbs.controller;
+﻿package com.ktds.bbs.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +20,14 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.ktds.bbs.service.BBSService;
 import com.ktds.bbs.vo.BoardVO;
 
+
 @Controller
 public class BBS_Controller {
+// Git ������
+
+	public BBS_Controller(){
+
+	}
 
 	@Autowired
 	BBSService bbsService;
@@ -40,8 +46,8 @@ public class BBS_Controller {
 
 		mav = new ModelAndView();
 
-		// pageNum 같이 null 였을 때도 필요한 기능을 사용하려면 @RequestParam 을 사용하면 안된다
-		// 이유는 @RequestParam 은 null 오면 400번 에러가 바로 뜬다.
+		// pageNum 같이 null ?�???�도 ?�요??기능???�용?�려�?@RequestParam ???�용?�면 ?�된??
+		// ?�유??@RequestParam ?� null ?�면 400�??�러가 바로 ?�다.
 		String pageNum = null;
 		pageNum = req.getParameter("pageNum");
 
@@ -91,9 +97,9 @@ public class BBS_Controller {
 		if (status == 1) {
 			session.setAttribute("id", id);
 		} else if (status == 2) {
-			mav.addObject("result", "패스워드 틀림");
+			mav.addObject("result", "?�스?�드 ?��?);
 		} else {
-			mav.addObject("result", "아이디 존재하지 않음");
+			mav.addObject("result", "?�이??존재?��? ?�음");
 		}
 
 		if (session.getAttribute("logined") == "ok") {
@@ -143,25 +149,25 @@ public class BBS_Controller {
 
 		session = req.getSession();
 
-		// 주의할점
-		// MultipartResolver는 파일이 업로드 되지 않을 경우 null 을 리턴하는 것이 아니라
-		// "" (공백) 을 티런해줌 그래서 파일업로드를 하지 않아도 NullPointerException이 발생하지 않음
+		// 주의?�점
+		// MultipartResolver???�일???�로???��? ?�을 경우 null ??리턴?�는 것이 ?�니??
+		// "" (공백) ???�런?�줌 그래???�일?�로?��? ?��? ?�아??NullPointerException??발생?��? ?�음
 
-		MultipartFile uploadfile = article.getuploadFile(); // 여기서는 Null
+		MultipartFile uploadfile = article.getuploadFile(); // ?�기?�는 Null
 
-		String fname = uploadfile.getOriginalFilename(); // 여기서는 ""
+		String fname = uploadfile.getOriginalFilename(); // ?�기?�는 ""
 		if (fname.equals("")) {
 			article.setFname(null);
 		} else {
 			article.setFname(fname);
 
-			// 1. FileOutputStream 사용
+			// 1. FileOutputStream ?�용
 			// byte[] fileData = file.getBytes();
 			// FileOutputStream output = new FileOutputStream("C:/images/" +
 			// fileName);
 			// output.write(fileData);
 
-			// 2. transferTo 함수 사용
+			// 2. transferTo ?�수 ?�용
 			uploadfile.transferTo(new File("d:/upload/" + fname));
 		}
 
@@ -192,22 +198,22 @@ public class BBS_Controller {
 
 		session = req.getSession();
 
-		MultipartFile uploadfile = article.getuploadFile(); // 여기서는 Null
+		MultipartFile uploadfile = article.getuploadFile(); // ?�기?�는 Null
 
-		String fname = uploadfile.getOriginalFilename(); // 여기서는 ""
+		String fname = uploadfile.getOriginalFilename(); // ?�기?�는 ""
 		System.out.println("fname" + fname);
 		if (fname.equals("")) {
 
 		} else {
 			article.setFname(fname);
 
-			// 1. FileOutputStream 사용
+			// 1. FileOutputStream ?�용
 			// byte[] fileData = file.getBytes();
 			// FileOutputStream output = new FileOutputStream("C:/images/" +
 			// fileName);
 			// output.write(fileData);
 
-			// 2. transferTo 함수 사용
+			// 2. transferTo ?�수 ?�용
 			uploadfile.transferTo(new File("d:/upload/" + fname));
 		}
 
@@ -244,21 +250,21 @@ public class BBS_Controller {
 			throws IllegalStateException, IOException {
 		session = req.getSession();
 
-		MultipartFile uploadfile = article.getuploadFile(); // 여기서는 Null
+		MultipartFile uploadfile = article.getuploadFile(); // ?�기?�는 Null
 
-		String fname = uploadfile.getOriginalFilename(); // 여기서는 ""
+		String fname = uploadfile.getOriginalFilename(); // ?�기?�는 ""
 		if (fname.equals("")) {
 			article.setFname(null);
 		} else {
 			article.setFname(fname);
 
-			// 1. FileOutputStream 사용
+			// 1. FileOutputStream ?�용
 			// byte[] fileData = file.getBytes();
 			// FileOutputStream output = new FileOutputStream("C:/images/" +
 			// fileName);
 			// output.write(fileData);
 
-			// 2. transferTo 함수 사용
+			// 2. transferTo ?�수 ?�용
 			uploadfile.transferTo(new File("d:/upload/" + fname));
 		}
 
