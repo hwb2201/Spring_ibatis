@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+	<typeAlias alias="comment" type="com.ktds.comment.vo.CommentVO" />
+
+	<!-- Comment Start -->
+	<!-- Get All Comments in article-->
+	<select id="getComments" parameterClass="Integer" resultClass="comment">select * from comm where article_num = #article_num#</select>
+	<!-- Insert Comment-->
+	<insert id="insertComment" parameterClass="HashMap">insert into comm values (com_seq.nextval, #comment#, #article_num#, #id#, sysdate)</insert>
+	<!-- Delete Comment-->
+	<delete id="deleteComment" parameterClass="HashMap">delete comm where comment_num = #comment_num# and id = #id#</delete>
+		
+	<!-- Comment End -->
+</sqlMap>

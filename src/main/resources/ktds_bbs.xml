@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap>
+
+	<typeAlias alias="article" type="com.ktds.bbs.vo.BoardVO" />
+	<!-- BBS Start -->
+	<!-- Get All articles count -->
+	<select id="getArticleCount" resultClass="int">
+		select count(*) from bbs
+	</select>
+
+	<!-- Get All articles -->
+	<select id="getArticles" parameterClass="HashMap" resultClass="article">
+		select article_num, id, title, depth, hit, write_date
+		from ( select rownum rm, bbs.* from
+		( select * from bbs order by group_id desc, pos) bbs )
+		where rm between #StartRow# and #EndRow#
+	</select>
+
+	<!-- Get Article -->
+	<select id="getArticle" parameterClass="Integer" resultClass="article">
+		select * from bbs where article_num = #article_num#
+	</select>
+	
+	<!-- Get Article For Update -->
+	<select id="getArticleForUpdate" parameterClass="String" resultClass="article">
+		select article_num, id, hit, title, content, fname from bbs where article_num = #article_num#
+	</select>
+	
+	<!-- When Get article, Hit up -->
+	<update id="updateHit" parameterClass="Integer">
+		update bbs set hit = hit+1
+		where article_num = #article_num#
+	</update>
+
+	<!-- Login check -->
+	<select id="loginCheck" parameterClass="String" resultClass="String">
+		select pass from login where id=#id#
+	</select>
+
+	<!-- Insert Article -->
+	<insert id="insertArticle" parameterClass="article">
+		INSERT INTO bbs (ARTICLE_NUM, ID, TITLE, CONTENT, HIT, GROUP_ID, POS, DEPTH, WRITE_DATE, FNAME)
+		VALUES ( bbs_seq.nextval,
+		#id#, #title#, #content#, 0, bbs_seq.currval, 0, 0, sysdate, #fname#)
+	</insert>
+	
+	<!-- Update Article -->
+	<update id="updateArticle" parameterClass="article">
+		update bbs set title=#title#, content=#content#, fname=#fname# where article_num=#article_num#
+	</update>
+	
+	<!-- Delete Article -->
+	<delete id="deleteArticle" parameterClass="String">
+		delete bbs where article_num = #article_num#
+	</delete>
+	
+	<!-- insertReply -->
+	
+	<update id="updatePos" parameterClass="HashMap">
+		update bbs set pos = pos+1 where group_id = #group_id# and pos > #pos#
+	</update>
+		
+	<insert id="insertReply" parameterClass="article">
+		INSERT INTO bbs (ARTICLE_NUM, ID, TITLE, CONTENT, HIT, GROUP_ID, POS, DEPTH, WRITE_DATE, FNAME) 
+		VALUES ( bbs_seq.nextval, #id#, #title#, #content#, 0, #group_id#, #pos#, #depth#, sysdate, #fname#) 
+	</insert>
+	<!-- BBS END -->
+</sqlMap>

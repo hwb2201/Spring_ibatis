@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="dataSource" p:password="1234" p:username="human"
+		p:url="jdbc:oracle:thin:@127.0.0.1:1521:xe" p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		destroy-method="close" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource" />
+
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="/WEB-INF/ibatis/sqlMapConfig.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" -->
+	<!-- p:configLocation="classpath:sqlMapConfig.xml"> -->
+	<!-- <property name="dataSource" ref="dataSource" /> -->
+	<!-- </bean> -->
+	<!-- <bean id="sqlMapClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate" -->
+	<!-- p:sqlMapClient-ref="sqlMapClient" /> -->
+
+
+</beans>
