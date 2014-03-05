@@ -1,4 +1,4 @@
-package com.ktds.bbs.controller;
+﻿package com.ktds.bbs.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +22,10 @@ import com.ktds.bbs.vo.BoardVO;
 
 @Controller
 public class BBS_Controller {
+
+	public BBS_Controller(){
+
+	}
 
 	@Autowired
 	BBSService bbsService;
