@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 public class CommentVO {
-
+	//경준이가 입력한 주석임
 	private int comment_num;
 	private String comment_content;
 	private int article_num;
